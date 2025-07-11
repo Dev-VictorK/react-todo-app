@@ -10,7 +10,8 @@ function Tasks(
         ],
         setIsComplete,
         handleDelete,
-        editTask
+        editTask,
+        setTask
     }
 ) {
     const todoList = todos.map((todo, index) => {
@@ -18,7 +19,8 @@ function Tasks(
         isComplete={todo.isComplete} 
         setIsComplete={setIsComplete} 
         handleDelete={handleDelete}
-        editTask={editTask}/>
+        editTask={editTask}
+        setTask={setTask}/>
     })
     return (
         <>

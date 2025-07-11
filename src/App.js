@@ -11,8 +11,8 @@ function App() {
   const [task, setTask] = useState("");
 
   const addTodo = (todo) => {
-    const newTodo = [...todos, todo];
-    setTodos(newTodo);
+    const newTodos = [...todos, todo];
+    setTodos(newTodos);
     setTask("");
   }
 
@@ -24,7 +24,14 @@ function App() {
   }
 
   const handleDelete = (index) => {
-    const newTodos = [...todos.slice(0, index),...todos.slice(index+1)];
+    const newTodos = [...todos.slice(0, index), ...todos.slice(index + 1)];
+    setTodos(newTodos);
+  }
+
+  const editTask = (newTask, index) => {
+    const newTodos = [...todos.slice(0, index),
+    { ...todos[index], name: newTask },
+    ...todos.slice(index + 1)];
     setTodos(newTodos);
   }
 
@@ -32,7 +39,11 @@ function App() {
     <div className='App'>
       <h1>To Do App</h1>
       <AddTask task={task} setTask={setTask} addTodo={addTodo} />
-      <Tasks todos={todos} setIsComplete={setIsComplete} editTask={editTask} handleDelete={handleDelete}/>
+      <Tasks todos={todos}
+        setIsComplete={setIsComplete}
+        editTask={editTask}
+        handleDelete={handleDelete}
+        setTask={setTask} />
     </div>
   );
 }

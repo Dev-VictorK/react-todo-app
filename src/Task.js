@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
 import EditTask from "./EditTask";
 
 function Task(props) {
+
+    const [isEdit, setIsEdit] = useState(false);
 
     const handleChange = () => {
         props.setIsComplete(!props.isComplete, props.id);
@@ -9,12 +12,12 @@ function Task(props) {
     const handleDelete = () => {
         props.handleDelete(props.id);
     }
-
-    const isEdit = false; 
-
+    
    return isEdit ? (
         <>
-            <EditTask task={props.task} id={props.id} editTask={props.editTask}/>
+            <EditTask task={props.task} id={props.id} 
+            editTask={props.editTask} setTask={props.setTask}
+            setIsEdit={setIsEdit}/>
         </>
     ):(
         <>
@@ -24,7 +27,7 @@ function Task(props) {
                 <input type="checkbox"
                     checked={props.isComplete}
                     onChange={handleChange} />
-                <button onClick={() => isEdit = !isEdit}> Edit</button>
+                <button onClick={setIsEdit}> Edit</button>
                 <button onClick={handleDelete}>Delete</button>
             </li>
         </>
