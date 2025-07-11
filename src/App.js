@@ -17,17 +17,17 @@ function App() {
   }
 
   const setIsComplete = (isComplete, index) => {
-    const newTodos = [...todos.slice(0,index), 
-      {...todos[index], isComplete}, 
-      ...todos.slice(index+1)];
-      setTodos(newTodos);
+    const newTodos = [...todos.slice(0, index),
+    { ...todos[index], isComplete },
+    ...todos.slice(index + 1)];
+    setTodos(newTodos);
   }
 
   return (
     <div className='App'>
       <h1>To Do App</h1>
-      <AddTask task={task} setTask={setTask} addTodo={addTodo}/>
-      <Tasks todos={todos} setIsComplete={setIsComplete}/>
+      <AddTask task={task} setTask={setTask} addTodo={addTodo} />
+      <Tasks todos={todos} setIsComplete={setIsComplete} />
     </div>
   );
 }
