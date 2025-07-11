@@ -1,3 +1,5 @@
+import EditTask from "./EditTask";
+
 function Task(props) {
 
     const handleChange = () => {
@@ -7,7 +9,14 @@ function Task(props) {
     const handleDelete = () => {
         props.handleDelete(props.id);
     }
-    return (
+
+    const isEdit = false; 
+
+   return isEdit ? (
+        <>
+            <EditTask task={props.task} id={props.id} editTask={props.editTask}/>
+        </>
+    ):(
         <>
             <li>
                 Task: {props.task}
@@ -15,11 +24,13 @@ function Task(props) {
                 <input type="checkbox"
                     checked={props.isComplete}
                     onChange={handleChange} />
-                <button>Edit</button>
+                <button onClick={() => isEdit = !isEdit}> Edit</button>
                 <button onClick={handleDelete}>Delete</button>
             </li>
         </>
-    )
+    );
+    
+    
 }
 
 export default Task;

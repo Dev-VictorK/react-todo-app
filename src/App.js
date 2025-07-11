@@ -32,7 +32,7 @@ function App() {
     <div className='App'>
       <h1>To Do App</h1>
       <AddTask task={task} setTask={setTask} addTodo={addTodo} />
-      <Tasks todos={todos} setIsComplete={setIsComplete} handleDelete={handleDelete}/>
+      <Tasks todos={todos} setIsComplete={setIsComplete} editTask={editTask} handleDelete={handleDelete}/>
     </div>
   );
 }
