@@ -23,11 +23,16 @@ function App() {
     setTodos(newTodos);
   }
 
+  const handleDelete = (index) => {
+    const newTodos = [...todos.slice(0, index),...todos.slice(index+1)];
+    setTodos(newTodos);
+  }
+
   return (
     <div className='App'>
       <h1>To Do App</h1>
       <AddTask task={task} setTask={setTask} addTodo={addTodo} />
-      <Tasks todos={todos} setIsComplete={setIsComplete} />
+      <Tasks todos={todos} setIsComplete={setIsComplete} handleDelete={handleDelete}/>
     </div>
   );
 }

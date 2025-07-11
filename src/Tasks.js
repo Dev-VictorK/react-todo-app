@@ -8,11 +8,15 @@ function Tasks(
                 isComplete: false
             }
         ],
-        setIsComplete
+        setIsComplete,
+        handleDelete
     }
 ) {
     const todoList = todos.map((todo, index) => {
-        return <Task key={index} id={index} task={todo.name} isComplete={todo.isComplete} setIsComplete={setIsComplete} />
+        return <Task key={index} id={index} task={todo.name} 
+        isComplete={todo.isComplete} 
+        setIsComplete={setIsComplete} 
+        handleDelete={handleDelete}/>
     })
     return (
         <>

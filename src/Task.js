@@ -1,8 +1,11 @@
 function Task(props) {
 
     const handleChange = () => {
-        const a = 9;
         props.setIsComplete(!props.isComplete, props.id);
+    }
+
+    const handleDelete = () => {
+        props.handleDelete(props.id);
     }
     return (
         <>
@@ -13,7 +16,7 @@ function Task(props) {
                     checked={props.isComplete}
                     onChange={handleChange} />
                 <button>Edit</button>
-                <button>Delete</button>
+                <button onClick={handleDelete}>Delete</button>
             </li>
         </>
     )
