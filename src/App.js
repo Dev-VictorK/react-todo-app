@@ -9,6 +9,8 @@ Store tasks in localStorage.*/}
 function App() {
   const [todos, setTodos] = useState([]);
   const [task, setTask] = useState("");
+  const [stored, setStored] = useState([]);
+
 
   const storeTasks = (todos) => {
     localStorage.setItem('todos', JSON.stringify(todos));
@@ -21,36 +23,40 @@ function App() {
   }
 
   const setIsComplete = (isComplete, index) => {
-    const newTodos = [...todos.slice(0, index),
-    { ...todos[index], isComplete },
-    ...todos.slice(index + 1)];
+    const newTodos = [...stored.slice(0, index),
+    { ...stored[index], isComplete },
+    ...stored.slice(index + 1)];
     setTodos(newTodos);
   }
 
   const handleDelete = (index) => {
-    const newTodos = [...todos.slice(0, index), ...todos.slice(index + 1)];
+    const newTodos = [...stored.slice(0, index), ...stored.slice(index + 1)];
     setTodos(newTodos);
   }
 
   const editTask = (newTask, index) => {
-    const newTodos = [...todos.slice(0, index),
-    { ...todos[index], name: newTask },
-    ...todos.slice(index + 1)];
+    const newTodos = [...stored.slice(0, index),
+    { ...stored[index], name: newTask },
+    ...stored.slice(index + 1)];
     setTodos(newTodos);
   }
 
   useEffect(() => {
-    storeTasks(todos);
-    console.log("Called");
+    if (todos.length > 0) {
+      storeTasks(todos);
+    }
     const retrieved = JSON.parse(localStorage.getItem('todos'));
-    console.log(retrieved);
+    if (retrieved.length > 0) {
+      setStored(retrieved);
+    }
+
   }, [todos]);
 
   return (
     <div className='App'>
       <h1>To Do App</h1>
       <AddTask task={task} setTask={setTask} addTodo={addTodo} />
-      <Tasks todos={todos}
+      <Tasks stored={stored}
         setIsComplete={setIsComplete}
         editTask={editTask}
         handleDelete={handleDelete}

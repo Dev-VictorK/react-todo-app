@@ -2,7 +2,7 @@ import Task from "./Task";
 
 function Tasks(
     {
-        todos = [
+        stored = [
             {
                 name: "No task yet",
                 isComplete: false
@@ -14,7 +14,7 @@ function Tasks(
         setTask
     }
 ) {
-    const todoList = todos.map((todo, index) => {
+    const todoList = stored.map((todo, index) => {
         return <Task key={index} id={index} task={todo.name} 
         isComplete={todo.isComplete} 
         setIsComplete={setIsComplete} 
