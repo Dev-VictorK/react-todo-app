@@ -2,22 +2,22 @@ import Task from "./Task";
 
 function Tasks(
     {
-        stored = [
+        todos = [
             {
                 name: "No task yet",
                 isComplete: false
             }
         ],
-        setIsComplete,
+        toggleComplete,
         handleDelete,
         editTask,
         setTask
     }
 ) {
-    const todoList = stored.map((todo, index) => {
+    const todoList = todos.map((todo, index) => {
         return <Task key={index} id={index} task={todo.name} 
         isComplete={todo.isComplete} 
-        setIsComplete={setIsComplete} 
+        toggleComplete={toggleComplete} 
         handleDelete={handleDelete}
         editTask={editTask}
         setTask={setTask}/>

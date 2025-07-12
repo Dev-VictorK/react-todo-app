@@ -7,9 +7,10 @@ function AddTask(
 
     const handleClick = (e) => {
         e.preventDefault();
+        if(task.length > 0){
         const todo = {name: task, isComplete: false};
         addTodo(todo);
-        
+        }
     }
 
     return (

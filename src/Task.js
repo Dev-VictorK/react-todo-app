@@ -6,7 +6,7 @@ function Task(props) {
     const [isEdit, setIsEdit] = useState(false);
 
     const handleChange = () => {
-        props.setIsComplete(!props.isComplete, props.id);
+        props.toggleComplete(!props.isComplete, props.id);
     }
 
     const handleDelete = () => {

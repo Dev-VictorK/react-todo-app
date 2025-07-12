@@ -7,58 +7,47 @@ import AddTask from './AddTask';
 Add, edit, delete, and mark tasks as complete.
 Store tasks in localStorage.*/}
 function App() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    const saved = localStorage.getItem('todos');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [task, setTask] = useState("");
-  const [stored, setStored] = useState([]);
-
-  const storeTasks = (todos) => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }
 
   const addTodo = (todo) => {
-    const newTodos = [...stored, todo];
+    const newTodos = [...todos, todo];
     setTodos(newTodos);
     setTask("");
   }
 
-  const setIsComplete = (isComplete, index) => {
-    const newTodos = [...stored.slice(0, index),
-    { ...stored[index], isComplete },
-    ...stored.slice(index + 1)];
+  const toggleComplete = (isComplete, index) => {
+    const newTodos = [...todos.slice(0, index),
+    { ...todos[index], isComplete },
+    ...todos.slice(index + 1)];
     setTodos(newTodos);
   }
 
   const handleDelete = (index) => {
-    const newTodos = [...stored.slice(0, index), ...stored.slice(index + 1)];
-    storeTasks(newTodos);
+    const newTodos = [...todos.slice(0, index), ...todos.slice(index + 1)];
     setTodos(newTodos);
   }
 
   const editTask = (newTask, index) => {
-    const newTodos = [...stored.slice(0, index),
-    { ...stored[index], name: newTask },
-    ...stored.slice(index + 1)];
+    const newTodos = [...todos.slice(0, index),
+    { ...todos[index], name: newTask },
+    ...todos.slice(index + 1)];
     setTodos(newTodos);
   }
 
-  useEffect(() => {
-    if (todos.length > 0) {
-      storeTasks(todos);
-    }
-    const retrieved = JSON.parse(localStorage.getItem('todos'));
-    if (retrieved.length > 0) {
-      setStored(retrieved);
-    } else {
-      setStored([]);
-    }
-  }, [todos]);
+  useEffect(()=> {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos])
 
   return (
     <div className='App'>
       <h1>To Do App</h1>
       <AddTask task={task} setTask={setTask} addTodo={addTodo} />
-      <Tasks stored={stored}
-        setIsComplete={setIsComplete}
+      <Tasks todos={todos}
+        toggleComplete={toggleComplete}
         editTask={editTask}
         handleDelete={handleDelete}
         setTask={setTask} />
