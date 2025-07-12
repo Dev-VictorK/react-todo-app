@@ -12,6 +12,7 @@ function App() {
     return saved ? JSON.parse(saved) : [];
   });
   const [task, setTask] = useState("");
+  
 
   const addTodo = (todo) => {
     const newTodos = [...todos, todo];
