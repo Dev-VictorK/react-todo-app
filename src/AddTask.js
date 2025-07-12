@@ -9,6 +9,7 @@ function AddTask(
         e.preventDefault();
         const todo = {name: task, isComplete: false};
         addTodo(todo);
+        
     }
 
     return (

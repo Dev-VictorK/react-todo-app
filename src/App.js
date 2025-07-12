@@ -11,13 +11,12 @@ function App() {
   const [task, setTask] = useState("");
   const [stored, setStored] = useState([]);
 
-
   const storeTasks = (todos) => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }
 
   const addTodo = (todo) => {
-    const newTodos = [...todos, todo];
+    const newTodos = [...stored, todo];
     setTodos(newTodos);
     setTask("");
   }
@@ -31,6 +30,7 @@ function App() {
 
   const handleDelete = (index) => {
     const newTodos = [...stored.slice(0, index), ...stored.slice(index + 1)];
+    storeTasks(newTodos);
     setTodos(newTodos);
   }
 
@@ -48,8 +48,9 @@ function App() {
     const retrieved = JSON.parse(localStorage.getItem('todos'));
     if (retrieved.length > 0) {
       setStored(retrieved);
+    } else {
+      setStored([]);
     }
-
   }, [todos]);
 
   return (
