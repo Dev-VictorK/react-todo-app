@@ -5,7 +5,16 @@ import AddTask from './AddTask';
 
 {/** To-Do List App
 Add, edit, delete, and mark tasks as complete.
-Store tasks in localStorage.*/}
+Store tasks in localStorage.
+------------------------------------------------------
+Add a unique ID to each task (uuid or timestamp).
+
+Add a filter (All / Completed / Incomplete).
+
+Sort by date or completion status.
+
+Add dark mode toggle using useContext.
+*/}
 function App() {
   const [todos, setTodos] = useState(() => {
     const saved = localStorage.getItem('todos');

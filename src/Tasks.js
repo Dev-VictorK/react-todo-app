@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Task from "./Task";
 
 function Tasks(
@@ -14,19 +15,15 @@ function Tasks(
         setTask
     }
 ) {
-    const todoList = todos.map((todo, index) => {
-        return <Task key={index} id={index} task={todo.name} 
-        isComplete={todo.isComplete} 
-        toggleComplete={toggleComplete} 
-        handleDelete={handleDelete}
-        editTask={editTask}
-        setTask={setTask}/>
-    })
     return (
         <>
             <h1>Your To Do's</h1>
+            <select>
+                <option value="all">All</option>
+                <option value="complete">Complete</option>
+                <option value="incomplete">Incomplete</option>
+            </select>
             <ul>
-                {todoList}
             </ul>
         </>
     )
