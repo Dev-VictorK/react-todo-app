@@ -97,15 +97,12 @@ function App() {
   }
 
   useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+    filterList(selectedFilter);
     if (selectedFilter === "all") {
       sort(selectedSort);
     }
-  }, [selectedSort])
-
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-    filterList(selectedFilter);
-  }, [todos, selectedFilter])
+  }, [todos, selectedFilter, selectedSort])
 
   return (
     <div className='App'>
