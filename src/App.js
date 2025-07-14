@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import Tasks from './Tasks';
 import AddTask from './AddTask';
+import Filter from './Filter';
 
 {/** To-Do List App
 Add, edit, delete, and mark tasks as complete.
@@ -21,7 +22,9 @@ function App() {
     return saved ? JSON.parse(saved) : [];
   });
   const [task, setTask] = useState("");
-  
+  const [filtered, setFiltered] = useState("all");
+  const [filteredList, setFilteredList] = useState(todos);
+
 
   const addTodo = (todo) => {
     const newTodos = [...todos, todo];
@@ -48,15 +51,19 @@ function App() {
     setTodos(newTodos);
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
+    setFilteredList(todos);
   }, [todos])
 
   return (
     <div className='App'>
       <h1>To Do App</h1>
       <AddTask task={task} setTask={setTask} addTodo={addTodo} />
-      <Tasks todos={todos}
+      <Filter todos={todos}
+        filtered={filtered} setFiltered={setFiltered}
+        setFilteredList={setFilteredList} />
+      <Tasks todos={filteredList}
         toggleComplete={toggleComplete}
         editTask={editTask}
         handleDelete={handleDelete}

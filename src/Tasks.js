@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import Task from "./Task";
+import { v4 as uuidv4 } from "uuid";
 
 function Tasks(
     {
@@ -15,15 +15,18 @@ function Tasks(
         setTask
     }
 ) {
+    const list = todos.map((todo, index) => {
+        const uniqueId = uuidv4();
+        return <Task key={uniqueId} id={index}
+            task={todo.name} isComplete={todo.isComplete}
+            editTask={editTask} setTask={setTask} handleDelete={handleDelete}
+            toggleComplete={toggleComplete} />
+    });
     return (
         <>
             <h1>Your To Do's</h1>
-            <select>
-                <option value="all">All</option>
-                <option value="complete">Complete</option>
-                <option value="incomplete">Incomplete</option>
-            </select>
             <ul>
+                {list}
             </ul>
         </>
     )
