@@ -24,7 +24,6 @@ function App() {
   });
   const [task, setTask] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("all");
-  const [filteredList, setFilteredList] = useState(todos);
   const [selectedSort, setSelectedSort] = useState("default");
 
   const addTodo = (todo) => {
@@ -33,7 +32,7 @@ function App() {
     setTask("");
   }
 
-  const handleDelete = (id) => {
+  const deleteTodo = (id) => {
     const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
   }
@@ -58,51 +57,23 @@ function App() {
     setTodos(newTodos);
   }
 
-  function filterList(choice) {
-    let list;
-    switch (choice) {
-      case "complete":
-        list = todos.filter((todo) => todo.isComplete === true);
-        break;
-      case "incomplete":
-        list = todos.filter((todo) => todo.isComplete === false);
-        break;
-      case "all":
-        list = todos;
-        break;
-      default:
-        break;
-    }
-    setFilteredList(list);
-  }
-
-  function sort(choice) {
-    let list;
-    switch (choice) {
-      case "C2I":
-        // sort with true before false
-        list = todos.toSorted((a, b) => Number(b.isComplete) - Number(a.isComplete));
-        break;
-      case "I2C":
-        //sort with false before true
-        list = todos.toSorted((a, b) => Number(a.isComplete) - Number(b.isComplete));
-        break;
-      case "default":
-        list = todos;
-        break;
-      default:
-        break;
-    }
-    setFilteredList(list);
-  }
+  const filteredList = todos.
+    filter((todo) => {
+      if (selectedFilter === "complete") return todo.isComplete;
+      if (selectedFilter === "incomplete") return !todo.isComplete;
+      return true;
+    }).
+    toSorted((a, b) => {
+      if (selectedSort === "C2I") return Number(b.isComplete) - Number(a.isComplete);
+      if (selectedSort === "I2C") return Number(a.isComplete) - Number(b.isComplete);
+      if(selectedSort === "newest") return new Date(b.createdAt) - new Date(a.createdAt);
+      if(selectedSort === "oldest") return new Date(a.createdAt) - new Date(b.createdAt);
+      return 0;
+    });
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
-    filterList(selectedFilter);
-    if (selectedFilter === "all") {
-      sort(selectedSort);
-    } 
-  }, [todos, selectedFilter, selectedSort])
+  }, [todos])
 
   return (
     <div className='App'>
@@ -114,7 +85,7 @@ function App() {
       <Tasks filteredList={filteredList}
         toggleComplete={toggleComplete}
         editTask={editTask}
-        handleDelete={handleDelete}
+        deleteTodo={deleteTodo}
         setTask={setTask} />
     </div>
   );

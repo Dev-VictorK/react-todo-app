@@ -9,8 +9,8 @@ function Task(props) {
         props.toggleComplete(!props.isComplete, props.id);
     }
 
-    const handleDelete = () => {
-        props.handleDelete(props.id);
+    const handleDeleteClick = () => {
+        props.deleteTodo(props.id);
     }
     
    return isEdit ? (
@@ -28,7 +28,7 @@ function Task(props) {
                     checked={props.isComplete}
                     onChange={handleChange} />
                 <button onClick={setIsEdit}> Edit</button>
-                <button onClick={handleDelete}>Delete</button>
+                <button onClick={handleDeleteClick}>Delete</button>
             </li>
         </>
     );

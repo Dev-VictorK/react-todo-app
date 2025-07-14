@@ -10,7 +10,7 @@ function AddTask(
     const handleClick = (e) => {
         e.preventDefault();
         if(task.length > 0){
-        const todo = {name: task, isComplete: false, id: uuidv4()};
+        const todo = {name: task, isComplete: false, id: uuidv4(), createdAt: new Date().toISOString() };
         addTodo(todo);
         }
     }

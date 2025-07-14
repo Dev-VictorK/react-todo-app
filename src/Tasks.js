@@ -10,7 +10,7 @@ function Tasks(
             }
         ],
         toggleComplete,
-        handleDelete,
+        deleteTodo,
         editTask,
         setTask
     }
@@ -18,7 +18,7 @@ function Tasks(
     const list = filteredList.map((todo) => {
         return <Task key={todo.id} id={todo.id}
             task={todo.name} isComplete={todo.isComplete}
-            editTask={editTask} setTask={setTask} handleDelete={handleDelete}
+            editTask={editTask} setTask={setTask} deleteTodo={deleteTodo}
             toggleComplete={toggleComplete} />
     });
     return (
