@@ -101,13 +101,14 @@ function App() {
     filterList(selectedFilter);
     if (selectedFilter === "all") {
       sort(selectedSort);
-    }
+    } 
   }, [todos, selectedFilter, selectedSort])
 
   return (
     <div className='App'>
       <h1>To Do App</h1>
       <AddTask task={task} setTask={setTask} addTodo={addTodo} />
+      <h3>Actions</h3>
       <Filter selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
       <Sort selectedSort={selectedSort} setSelectedSort={setSelectedSort} />
       <Tasks filteredList={filteredList}

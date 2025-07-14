@@ -23,7 +23,7 @@ function Tasks(
     });
     return (
         <>
-            <h1>Your To Do's</h1>
+            <h3>Your To Do's</h3>
             <ul>
                 {list}
             </ul>
