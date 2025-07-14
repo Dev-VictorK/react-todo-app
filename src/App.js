@@ -48,10 +48,10 @@ function App() {
     setTodos(newTodos);
   }
 
-  const toggleComplete = (newIsComplete, id) => {
+  const toggleComplete = (isComplete, id) => {
     const newTodos = todos.map((todo) => {
       if (todo.id === id) {
-        return { ...todo, isComplete: newIsComplete };
+        return { ...todo, isComplete };
       }
       return todo;
     });
