@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 function Tasks(
     {
-        todos = [
+        filteredList = [
             {
                 name: "No task yet",
                 isComplete: false
@@ -15,9 +15,10 @@ function Tasks(
         setTask
     }
 ) {
-    const list = todos.map((todo, index) => {
+    const list = filteredList.map((todo, index) => {
         const uniqueId = uuidv4();
-        return <Task key={uniqueId} id={index}
+        
+        return <Task key={index} id={index}
             task={todo.name} isComplete={todo.isComplete}
             editTask={editTask} setTask={setTask} handleDelete={handleDelete}
             toggleComplete={toggleComplete} />

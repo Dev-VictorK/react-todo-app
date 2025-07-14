@@ -22,8 +22,7 @@ function App() {
     return saved ? JSON.parse(saved) : [];
   });
   const [task, setTask] = useState("");
-  const [filtered, setFiltered] = useState("all");
-  const [filteredList, setFilteredList] = useState(todos);
+  const [selectedFilter, setSelectedFilter] = useState("all");
 
 
   const addTodo = (todo) => {
@@ -32,9 +31,9 @@ function App() {
     setTask("");
   }
 
-  const toggleComplete = (isComplete, index) => {
+  const toggleComplete = (rev, index) => {
     const newTodos = [...todos.slice(0, index),
-    { ...todos[index], isComplete },
+    { ...todos[index], isComplete: rev },
     ...todos.slice(index + 1)];
     setTodos(newTodos);
   }
@@ -51,19 +50,36 @@ function App() {
     setTodos(newTodos);
   }
 
+  const filteredList = filterList(selectedFilter);
+
+  function filterList(choice) {
+    let list;
+        switch(choice) {
+            case "complete":
+                list = todos.filter((todo) => todo.isComplete === true);
+                break;
+            case "incomplete":
+                list = todos.filter((todo)=> todo.isComplete === false);
+                break;
+            case "all":
+                list = todos;
+                break;
+            default:
+                break;
+        }
+        return list;
+  }
+
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
-    setFilteredList(todos);
   }, [todos])
 
   return (
     <div className='App'>
       <h1>To Do App</h1>
       <AddTask task={task} setTask={setTask} addTodo={addTodo} />
-      <Filter todos={todos}
-        filtered={filtered} setFiltered={setFiltered}
-        setFilteredList={setFilteredList} />
-      <Tasks todos={filteredList}
+      <Filter setSelectedFilter={setSelectedFilter} />
+      <Tasks filteredList={filteredList}
         toggleComplete={toggleComplete}
         editTask={editTask}
         handleDelete={handleDelete}
