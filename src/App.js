@@ -3,6 +3,7 @@ import './App.css';
 import Tasks from './Tasks';
 import AddTask from './AddTask';
 import Filter from './Filter';
+import Sort from './Sort';
 
 {/** To-Do List App
 Add, edit, delete, and mark tasks as complete.
@@ -24,6 +25,7 @@ function App() {
   const [task, setTask] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [filteredList, setFilteredList] = useState(todos);
+  const [selectedSort, setSelectedSort] = useState("default");
 
   const addTodo = (todo) => {
     const newTodos = [...todos, todo];
@@ -45,7 +47,7 @@ function App() {
     });
     setTodos(newTodos);
   }
-  
+
   const toggleComplete = (newIsComplete, id) => {
     const newTodos = todos.map((todo) => {
       if (todo.id === id) {
@@ -74,6 +76,32 @@ function App() {
     setFilteredList(list);
   }
 
+  function sort(choice) {
+    let list;
+    switch (choice) {
+      case "C2I":
+        // sort with true before false
+        list = todos.toSorted((a, b) => Number(b.isComplete) - Number(a.isComplete));
+        break;
+      case "I2C":
+        //sort with false before true
+        list = todos.toSorted((a, b) => Number(a.isComplete) - Number(b.isComplete));
+        break;
+      case "default":
+        list = todos;
+        break;
+      default:
+        break;
+    }
+    setFilteredList(list);
+  }
+
+  useEffect(() => {
+    if (selectedFilter === "all") {
+      sort(selectedSort);
+    }
+  }, [selectedSort])
+
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
     filterList(selectedFilter);
@@ -83,7 +111,8 @@ function App() {
     <div className='App'>
       <h1>To Do App</h1>
       <AddTask task={task} setTask={setTask} addTodo={addTodo} />
-      <Filter setSelectedFilter={setSelectedFilter} />
+      <Filter selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter} />
+      <Sort selectedSort={selectedSort} setSelectedSort={setSelectedSort} />
       <Tasks filteredList={filteredList}
         toggleComplete={toggleComplete}
         editTask={editTask}
