@@ -23,7 +23,7 @@ function App() {
   });
   const [task, setTask] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("all");
-
+  const [filteredList, setFilteredList] = useState(todos);
 
   const addTodo = (todo) => {
     const newTodos = [...todos, todo];
@@ -31,48 +31,53 @@ function App() {
     setTask("");
   }
 
-  const toggleComplete = (rev, index) => {
-    const newTodos = [...todos.slice(0, index),
-    { ...todos[index], isComplete: rev },
-    ...todos.slice(index + 1)];
+  const handleDelete = (id) => {
+    const newTodos = todos.filter((todo) => todo.id !== id);
     setTodos(newTodos);
   }
 
-  const handleDelete = (index) => {
-    const newTodos = [...todos.slice(0, index), ...todos.slice(index + 1)];
+  const editTask = (newTask, id) => {
+    const newTodos = todos.map(todo => {
+      if (todo.id === id) {
+        return { ...todo, name: newTask };
+      }
+      return todo;
+    });
     setTodos(newTodos);
   }
-
-  const editTask = (newTask, index) => {
-    const newTodos = [...todos.slice(0, index),
-    { ...todos[index], name: newTask },
-    ...todos.slice(index + 1)];
+  
+  const toggleComplete = (newIsComplete, id) => {
+    const newTodos = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, isComplete: newIsComplete };
+      }
+      return todo;
+    });
     setTodos(newTodos);
   }
-
-  const filteredList = filterList(selectedFilter);
 
   function filterList(choice) {
     let list;
-        switch(choice) {
-            case "complete":
-                list = todos.filter((todo) => todo.isComplete === true);
-                break;
-            case "incomplete":
-                list = todos.filter((todo)=> todo.isComplete === false);
-                break;
-            case "all":
-                list = todos;
-                break;
-            default:
-                break;
-        }
-        return list;
+    switch (choice) {
+      case "complete":
+        list = todos.filter((todo) => todo.isComplete === true);
+        break;
+      case "incomplete":
+        list = todos.filter((todo) => todo.isComplete === false);
+        break;
+      case "all":
+        list = todos;
+        break;
+      default:
+        break;
+    }
+    setFilteredList(list);
   }
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos])
+    filterList(selectedFilter);
+  }, [todos, selectedFilter])
 
   return (
     <div className='App'>

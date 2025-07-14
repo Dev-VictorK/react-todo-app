@@ -1,12 +1,12 @@
 import Task from "./Task";
-import { v4 as uuidv4 } from "uuid";
 
 function Tasks(
     {
         filteredList = [
             {
                 name: "No task yet",
-                isComplete: false
+                isComplete: false,
+                id: null
             }
         ],
         toggleComplete,
@@ -15,10 +15,8 @@ function Tasks(
         setTask
     }
 ) {
-    const list = filteredList.map((todo, index) => {
-        const uniqueId = uuidv4();
-        
-        return <Task key={index} id={index}
+    const list = filteredList.map((todo) => {
+        return <Task key={todo.id} id={todo.id}
             task={todo.name} isComplete={todo.isComplete}
             editTask={editTask} setTask={setTask} handleDelete={handleDelete}
             toggleComplete={toggleComplete} />

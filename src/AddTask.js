@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 function AddTask(
     { 
         task = "",
@@ -8,7 +10,7 @@ function AddTask(
     const handleClick = (e) => {
         e.preventDefault();
         if(task.length > 0){
-        const todo = {name: task, isComplete: false};
+        const todo = {name: task, isComplete: false, id: uuidv4()};
         addTodo(todo);
         }
     }
