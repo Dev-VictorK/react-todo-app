@@ -5,18 +5,7 @@ import AddTask from './AddTask';
 import Filter from './Filter';
 import Sort from './Sort';
 
-{/** To-Do List App
-Add, edit, delete, and mark tasks as complete.
-Store tasks in localStorage.
-------------------------------------------------------
-Add a unique ID to each task (uuid or timestamp).
 
-Add a filter (All / Completed / Incomplete).
-
-Sort by date or completion status.
-
-Add dark mode toggle using useContext.
-*/}
 function App() {
   const [todos, setTodos] = useState(() => {
     const saved = localStorage.getItem('todos');
@@ -57,17 +46,15 @@ function App() {
     setTodos(newTodos);
   }
 
-  const filteredList = todos.
-    filter((todo) => {
+  const filteredList = todos.filter((todo) => {
       if (selectedFilter === "complete") return todo.isComplete;
       if (selectedFilter === "incomplete") return !todo.isComplete;
       return true;
-    }).
-    toSorted((a, b) => {
+    }).toSorted((a, b) => {
       if (selectedSort === "C2I") return Number(b.isComplete) - Number(a.isComplete);
       if (selectedSort === "I2C") return Number(a.isComplete) - Number(b.isComplete);
-      if(selectedSort === "newest") return new Date(b.createdAt) - new Date(a.createdAt);
-      if(selectedSort === "oldest") return new Date(a.createdAt) - new Date(b.createdAt);
+      if (selectedSort === "newest") return new Date(b.createdAt) - new Date(a.createdAt);
+      if (selectedSort === "oldest") return new Date(a.createdAt) - new Date(b.createdAt);
       return 0;
     });
 

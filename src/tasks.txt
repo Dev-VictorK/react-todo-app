@@ -1,0 +1,16 @@
+{/** To-Do List App
+Add, edit, delete, and mark tasks as complete.
+Store tasks in localStorage.
+------------------------------------------------------
+Add a unique ID to each task (uuid or timestamp).
+Add a filter (All / Completed / Incomplete).
+Sort by date or completion status.
+Add dark mode toggle using useContext.
+
+------------------------------------------------------
+Move sorting/filtering logic to a custom hook (useFilteredTodos) if it grows.
+
+Abstract editTodo, deleteTodo, toggleComplete into a useTodos() hook for even better separation (especially if reused).
+
+Consider animations with Framer Motion for task transitions.
+*/}
